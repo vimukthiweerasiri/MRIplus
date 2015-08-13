@@ -22,7 +22,7 @@ function varargout = gui(varargin)
 
 % Edit the above text to modify the response to help gui
 
-% Last Modified by GUIDE v2.5 13-Aug-2015 18:37:31
+% Last Modified by GUIDE v2.5 13-Aug-2015 19:11:14
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -83,12 +83,47 @@ handles.abc = MP2GRAY;
 guidata(hObject,handles);
 
 
-% --- Executes on button press in pushbutton2.
-function pushbutton2_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton2 (see GCBO)
+% --- Executes on button press in invert.
+function invert_Callback(hObject, eventdata, handles)
+% hObject    handle to invert (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-MP2GRAY = handles.abc;
-imshow(~MP2GRAY);
-handles.abc = ~MP2GRAY;
+% I = read_mha('Images/Input/brain1.mha');
+I = read_mha();
+% getting the middle plane
+handles.I = I;
 guidata(hObject,handles);
+MIDDLE_PLANE = I(:,:,round(end / 2));
+MP2GRAY = mat2gray(MIDDLE_PLANE);
+imshow(MP2GRAY);
+
+
+% --- Executes on slider movement.
+function slider1_Callback(hObject, eventdata, handles)
+% hObject    handle to slider1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+% SLIDER_VALUE = str2double(get(hObject,'Value')) / (str2double(get(hObject,'Max')) - str2double(get(hObject,'Min')));
+
+I = handles.I;
+MIDDLE_PLANE = I(:,:,round(end * get(hObject,'Value')));
+MP2GRAY = mat2gray(MIDDLE_PLANE);
+imshow(MP2GRAY);
+handles.I = I;
+guidata(hObject,handles);
+
+
+
+% --- Executes during object creation, after setting all properties.
+function slider1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
