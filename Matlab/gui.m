@@ -93,9 +93,9 @@ I = read_mha();
 % getting the middle plane
 handles.I = I;
 guidata(hObject,handles);
-MIDDLE_PLANE = I(:,:,round(end / 2));
-MP2GRAY = mat2gray(MIDDLE_PLANE);
-imshow(MP2GRAY);
+%MIDDLE_PLANE = I(:,:,round(end / 2));
+%MP2GRAY = mat2gray(MIDDLE_PLANE);
+%imshow(MP2GRAY);
 
 
 % --- Executes on slider movement.
@@ -109,7 +109,8 @@ function slider1_Callback(hObject, eventdata, handles)
 % SLIDER_VALUE = str2double(get(hObject,'Value')) / (str2double(get(hObject,'Max')) - str2double(get(hObject,'Min')));
 
 I = handles.I;
-MIDDLE_PLANE = I(:,:,round(end * get(hObject,'Value')));
+% MIDDLE_PLANE = I(:,:,round(end * get(hObject,'Value')));
+MIDDLE_PLANE = squeeze(I(round(216 * get(hObject,'Value')),:,:));
 MP2GRAY = mat2gray(MIDDLE_PLANE);
 imshow(MP2GRAY);
 handles.I = I;
@@ -127,3 +128,4 @@ function slider1_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
+% add two imshows
