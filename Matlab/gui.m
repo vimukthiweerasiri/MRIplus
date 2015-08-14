@@ -110,9 +110,17 @@ function slider1_Callback(hObject, eventdata, handles)
 
 I = handles.I;
 % MIDDLE_PLANE = I(:,:,round(end * get(hObject,'Value')));
-MIDDLE_PLANE = squeeze(I(round(216 * get(hObject,'Value')),:,:));
+MIDDLE_PLANE = squeeze(I(round(160 * get(hObject,'Value')),:,:));
 MP2GRAY = mat2gray(MIDDLE_PLANE);
-imshow(MP2GRAY);
+imshow(MP2GRAY,'Parent', handles.axes1);
+
+MIDDLE_PLANE = squeeze(I(:,round(216 * get(hObject,'Value')),:));
+MP2GRAY = mat2gray(MIDDLE_PLANE);
+imshow(MP2GRAY,'Parent', handles.axes2);
+
+MIDDLE_PLANE = squeeze(I(:,:,round(176 * get(hObject,'Value'))));
+MP2GRAY = mat2gray(MIDDLE_PLANE);
+imshow(MP2GRAY,'Parent', handles.axes3);
 handles.I = I;
 guidata(hObject,handles);
 
