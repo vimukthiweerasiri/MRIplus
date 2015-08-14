@@ -116,15 +116,19 @@ disp(size(MP2GRAY));
 MP2GRAY(round(216 * get(hObject,'Value')),:) = 1;
 imshow(MP2GRAY,'Parent', handles.axes1);
 
-MIDDLE_PLANE = squeeze(I(:,round(216 * get(hObject,'Value')),:));
+MIDDLE_PLANE = squeeze(I(:,round(216 / 2),:));
+%MIDDLE_PLANE = squeeze(I(:,round(216 * get(hObject,'Value')),:));
 MP2GRAY = mat2gray(MIDDLE_PLANE);
 disp(size(MP2GRAY));
+MP2GRAY(round(160 * get(hObject,'Value')),:) = 1;
 imshow(MP2GRAY,'Parent', handles.axes2);
 
-MIDDLE_PLANE = squeeze(I(:,:,round(176 * get(hObject,'Value'))));
+MIDDLE_PLANE = squeeze(I(:,:,round(176 / 2)));
+%MIDDLE_PLANE = squeeze(I(:,:,round(176 * get(hObject,'Value'))));
 MP2GRAY = mat2gray(MIDDLE_PLANE);
 disp(size(MP2GRAY));
-imshow(MP2GRAY,'Parent', handles.axes3);
+MP2GRAY(round(160 * get(hObject,'Value')),:) = 1;
+imshow(rot90(MP2GRAY),'Parent', handles.axes3);
 handles.I = I;
 guidata(hObject,handles);
 
