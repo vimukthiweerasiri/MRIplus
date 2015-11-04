@@ -1,4 +1,6 @@
 function [T_INPUT, T_OUTPUT] = tilize(INPUT, OUTPUT, N)
+  INPUT = double(INPUT);
+  OUTPUT = double(OUTPUT);
   [HEIGHT, WIDTH] = size(INPUT);
   TRAINING_IDX = 1;
   TRAINING_OUTPUT = [];
@@ -24,7 +26,7 @@ function [T_INPUT, T_OUTPUT] = tilize(INPUT, OUTPUT, N)
         TRAINING_OUTPUT(TRAINING_IDX) = 0;
 
         NORM_RESULT = normalize(SUB_INPUT);
-        disp(NORM_RESULT);
+%         disp(NORM_RESULT);
         TRAINING_INPUT(:,TRAINING_IDX) = NORM_RESULT(:);
 
         TRAINING_IDX = TRAINING_IDX + 1;
@@ -36,12 +38,12 @@ function [T_INPUT, T_OUTPUT] = tilize(INPUT, OUTPUT, N)
 end
 
 function MAT = normalize(INPUT)
-  VEC_MAT = INPUT(:);
-  MEAN = mean(VEC_MAT);
-  VAR = var(VEC_MAT);
-  INPUT = INPUT - MEAN;
-  if VAR ~= 0
-    INPUT = INPUT / VAR;
-  end
+    VEC_MAT = INPUT(:);
+    MEAN = mean(VEC_MAT);
+    VAR = var(double(VEC_MAT), 1);
+    INPUT = INPUT - MEAN;
+    if VAR ~= 0
+      INPUT = INPUT / VAR;
+    end
   MAT = INPUT;
 end
