@@ -1,9 +1,13 @@
-function NN = train(INPUT_IMAGES, TARGET_IMAGES)
-	[H, SIZE] = size(INPUT_IMAGES);
-	for i = 1:SIZE
-		[X Y] = tilize(INPUT_IMAGES(i), TARGET_IMAGES(i));
-		TRAIN_INPUT = [TRAIN_INPUT X];
-		TRAIN_TARGET = [TRAIN_TARGET Y];
-	end
-	NN = newrb(TRAIN_INPUT, TRAIN_TARGET);
+function NN = train()
+    IN = imread('Images/SET1/MIDDLE_PLANES/IN/i1.png');
+    OUT = imread('Images/SET1/MIDDLE_PLANES/OUT/o1.png');
+    [T_IN T_OUT] = tilize(IN, OUT, 8);
+	for i = 2:3
+        IN_I = imread(strcat('Images/SET1/MIDDLE_PLANES/IN/','i',num2str(i), '.png'));
+        OUT_I = imread(strcat('Images/SET1/MIDDLE_PLANES/OUT/','o',num2str(i), '.png'));
+		[X Y] = tilize(IN_I, OUT_I, 8);
+        T_IN = [T_IN X];
+        T_OUT = [T_OUT Y];
+    end
+	NN = newrb(T_IN, T_OUT);
 end
