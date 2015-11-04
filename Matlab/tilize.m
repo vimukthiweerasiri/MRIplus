@@ -12,17 +12,17 @@ function [T_INPUT, T_OUTPUT] = tilize(INPUT, OUTPUT, N)
       SUB_OUTPUT = OUTPUT(i: i + N - 1, j: j + N - 1);
       OUT_SUM = sum(SUB_OUTPUT(:) == 0);
       if OUT_SUM == 0
-        disp('YES');
+%         disp('YES');
         TRAINING_OUTPUT(TRAINING_IDX) = 1;
 
         NORM_RESULT = normalize(SUB_INPUT);
-        disp(NORM_RESULT);
+%         disp(NORM_RESULT);
         TRAINING_INPUT(:,TRAINING_IDX) = NORM_RESULT(:);
 
         TRAINING_IDX = TRAINING_IDX + 1;
       end
       if OUT_SUM == N*N
-        disp('NO');
+%         disp('NO');
         TRAINING_OUTPUT(TRAINING_IDX) = 0;
 
         NORM_RESULT = normalize(SUB_INPUT);
