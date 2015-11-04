@@ -1,3 +1,5 @@
+% Load the mha, then select a plan I and pass it 
+% eg: watershed(I)
 function Ifinal = watershed(I)
     hy = fspecial('sobel');
     hx = hy';

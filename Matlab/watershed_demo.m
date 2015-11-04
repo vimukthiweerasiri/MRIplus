@@ -20,7 +20,7 @@ gradmag = sqrt(Ix.^2 + Iy.^2);
 %imshow(Lrgb)
 
 %Masking the background
-se = strel('disk', 20);
+se = strel('disk', 10);
 Io = imopen(I, se);
 %figure
 %imshow(Io);
