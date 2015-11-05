@@ -1,4 +1,4 @@
-function NN = train()
+function [NN, TIME] = train()
     IN = imread('Images/SET1/MIDDLE_PLANES/IN/i1.png');
     OUT = imread('Images/SET1/MIDDLE_PLANES/OUT/o1.png');
     [T_IN T_OUT] = tilize(IN, OUT, 8);
@@ -9,5 +9,9 @@ function NN = train()
         T_IN = [T_IN X];
         T_OUT = [T_OUT Y];
     end
-	NN = newrb(T_IN, T_OUT);
+    START = cputime;
+ 	NN = newrb(T_IN, T_OUT);
+    TIME = cputime - START;
+    disp(TIME);
+    
 end
