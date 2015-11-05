@@ -10,6 +10,10 @@ function [T_INPUT, T_OUTPUT] = tilize(INPUT, OUTPUT, N)
     for j = 1:N:WIDTH-N
       SUB_INPUT = INPUT(i: i + N - 1, j: j + N - 1);
       SUB_OUTPUT = OUTPUT(i: i + N - 1, j: j + N - 1);
+      IN_SUM = sum(SUB_INPUT(:) == 0);
+      if IN_SUM == N*N
+          continue;
+      end
       OUT_SUM = sum(SUB_OUTPUT(:) == 0);
       if OUT_SUM == 0
 %         disp('YES');
