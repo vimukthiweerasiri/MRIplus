@@ -1,8 +1,8 @@
 function [NN, TIME] = train()
-    IN = imread('Images/SET1/MIDDLE_PLANES/IN/i1.png');
-    OUT = imread('Images/SET1/MIDDLE_PLANES/OUT/o1.png');
+    IN = imread('Images/SET1/MIDDLE_PLANES/IN/i32.png');
+    OUT = imread('Images/SET1/MIDDLE_PLANES/OUT/o32.png');
     [T_IN T_OUT] = tilize(IN, OUT, 8);
-	for i = 2:3
+	for i = 33:34
         IN_I = imread(strcat('Images/SET1/MIDDLE_PLANES/IN/','i',num2str(i), '.png'));
         OUT_I = imread(strcat('Images/SET1/MIDDLE_PLANES/OUT/','o',num2str(i), '.png'));
 		[X Y] = tilize(IN_I, OUT_I, 8);
