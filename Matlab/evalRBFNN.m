@@ -24,9 +24,10 @@ function evalRBFNN(STARTING_POINT, SPAN, TEST_PERCENTAGE, GOAL, SPREAD_CONSTANT)
     disp(TEST_START + 1);
     disp(END);
     
-    NN = newrb(INPUT_TRAIN, TARGET_TRAIN, GOAL, SPREAD_CONSTANT, 1000, 100);
+    NN = newrb(INPUT_TRAIN, TARGET_TRAIN, GOAL, SPREAD_CONSTANT);
     OUTPUT = sim(NN, INPUT_TEST);
     plotconfusion(TARGET_TEST, OUTPUT);
-    
+    [dummy,CM] = confusion(TARGET_TEST,OUTPUT);
+    disp(CM);    
 end
 
