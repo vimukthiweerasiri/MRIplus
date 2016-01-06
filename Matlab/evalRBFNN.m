@@ -1,15 +1,22 @@
-function [CM] = evalRBFNN(STARTING_POINT, SPAN, TEST__START, TEST_SPAN, GOAL, SPREAD_CONSTANT, MN, DF)
+function [CM, OUTPUT, TARGET_TEST] = evalRBFNN(STARTING_POINT, SPAN, TEST__START, TEST_SPAN, GOAL, SPREAD_CONSTANT, MN, DF)
 % this returns the confusion matrix for the given evalution
-    ALL_INPUT = load('Data/DATA.mat', 'INPUT');
-    ALL_TARGET = load('Data/DATA.mat', 'TARGET');
-    ALL_INPUT = ALL_INPUT.INPUT;
-    ALL_TARGET = ALL_TARGET.TARGET;
+%     ALL_INPUT = load('Data/DATA.mat', 'INPUT');
+%     ALL_TARGET = load('Data/DATA.mat', 'TARGET');
+
+    ALL_INPUT = load('Data/equalizedDATA.mat', 'equalizedINPUT');
+    ALL_TARGET = load('Data/equalizedDATA.mat', 'equalizedTARGET');
+    
+    ALL_INPUT = ALL_INPUT.equalizedINPUT;
+    ALL_TARGET = ALL_TARGET.equalizedTARGET;
     LENGTH = length(ALL_TARGET);
     
     disp(TEST__START);
     disp(TEST_SPAN);
     
     START = int16(LENGTH * STARTING_POINT);
+    if START == 0
+        START = 1;
+    end
     END = int16(START + SPAN);
     TEST_START = START + TEST__START;
     TEST_END = TEST_START + TEST_SPAN;
@@ -38,6 +45,7 @@ function [CM] = evalRBFNN(STARTING_POINT, SPAN, TEST__START, TEST_SPAN, GOAL, SP
 
     NN = newrb(INPUT_TRAIN, TARGET_TRAIN, GOAL, SPREAD_CONSTANT, MN, DF);
     OUTPUT = sim(NN, INPUT_TEST);
+    disp(OUTPUT);
     [dummy,CM] = confusion(TARGET_TEST,OUTPUT);
 end
 
