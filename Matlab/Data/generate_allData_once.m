@@ -1,6 +1,10 @@
-function generate_allData_once( TILE_SIZE, WITH_EDGES, EDGE_LABEL)
+function generate_allData_once( TILE_SIZE, WITH_EDGES, EDGE_LABEL, NO_MID, MID_LABEL)
 % This function generate the data for ANN
 % TILE_SIZE: Breaks images into n x n tiles. Default is 8
+% WITH_EDGES: true for use edges in data
+% EDGE_LABEL: digit to set class for edge label. Default is -1
+% NO_MID: true to remove tumor mid parts from the dataset
+% MID_LABEL: digit to set class for edge label. Default is 1
     if nargin < 1
         TILE_SIZE = 8;
     end
@@ -13,16 +17,20 @@ function generate_allData_once( TILE_SIZE, WITH_EDGES, EDGE_LABEL)
         EDGE_LABEL = -1;
     end    
         
-
-    INPUT32 = imread('../Images/SET1/MIDDLE_PLANES/IN/i38.png');
-    TARGET32 = imread('../Images/SET1/MIDDLE_PLANES/OUT/o38.png');
-    [INPUT TARGET] = tilize(INPUT32, TARGET32, TILE_SIZE, WITH_EDGES);
-    
-        
+    if nargin < 4
+        NO_MID = false;
+    end
+   
+    if nargin < 5
+        MID_LABEL = 1;
+    end
+   
+    INPUT = [];
+    TARGET = [];
 	for i = 33:80
         IN_I = imread(strcat('../Images/SET1/MIDDLE_PLANES/IN/','i',num2str(i), '.png'));
         TARGET_I = imread(strcat('../Images/SET1/MIDDLE_PLANES/OUT/','o',num2str(i), '.png'));
-		[X, Y] = tilize(IN_I, TARGET_I, 8);
+		[X, Y] = tilize(IN_I, TARGET_I, TILE_SIZE, WITH_EDGES);
         INPUT = [INPUT, X];
         TARGET = [TARGET, Y];
     end
@@ -39,7 +47,7 @@ function generate_allData_once( TILE_SIZE, WITH_EDGES, EDGE_LABEL)
     for index = 1:length(TARGET)
         if TARGET(index) == 1
             INPUT_ONE = [INPUT_ONE INPUT(:, index)];
-            TARGET_ONE = [TARGET_ONE TARGET(index)];
+            TARGET_ONE = [TARGET_ONE MID_LABEL];
         elseif TARGET(index) == 0
             INPUT_ZERO = [INPUT_ZERO INPUT(:, index)];
             TARGET_ZERO = [TARGET_ZERO TARGET(index)];
@@ -58,7 +66,15 @@ function generate_allData_once( TILE_SIZE, WITH_EDGES, EDGE_LABEL)
     rZERO_INPUT = INPUT_ZERO(:, rIdx);
     rZERO_TARGET = TARGET_ZERO(rIdx);
     
-    len = max(length(TARGET_ONE),length(TARGET_MONE));
+    if WITH_EDGES
+        if MID_LABEL == EDGE_LABEL
+            len = length(TARGET_ONE) + length(TARGET_MONE);
+        else
+            len = max(length(TARGET_ONE),length(TARGET_MONE));
+        end
+    else
+        len = length(TARGET_ONE);
+    end
     
     rZERO_INPUT_FIRST = rZERO_INPUT(:, 1:len);
     rZERO_TARGET_FIRST = rZERO_TARGET(1:len);
@@ -66,16 +82,29 @@ function generate_allData_once( TILE_SIZE, WITH_EDGES, EDGE_LABEL)
     fINPUT = [INPUT_ONE rZERO_INPUT_FIRST];
     fTARGET = [TARGET_ONE rZERO_TARGET_FIRST];
     
-    if WITH_EDGES
-        fINPUT = [fINPUT INPUT_MONE];
-        fTARGET = [fTARGET TARGET_MONE];
-    
+    half = len - length(TARGET_ONE);
+    if WITH_EDGES & NO_MID
+       fINPUT = [INPUT_ONE INPUT_MONE];
+       fTARGET = [TARGET_ONE TARGET_MONE]; 
+    elseif WITH_EDGES & ~NO_MID
+        if MID_LABEL == 0
+            fINPUT = [INPUT_ONE rZERO_INPUT_FIRST(:, 1:half) INPUT_MONE];
+            fTARGET = [TARGET_ONE rZERO_TARGET_FIRST(1:half) TARGET_MONE];
+        elseif MID_LABEL == EDGE_LABEL
+            fINPUT = [INPUT_ONE rZERO_INPUT_FIRST INPUT_MONE];
+            fTARGET = [TARGET_ONE rZERO_TARGET_FIRST TARGET_MONE];
+        else
+            fINPUT = [INPUT_ONE rZERO_INPUT_FIRST INPUT_MONE];
+            fTARGET = [TARGET_ONE rZERO_TARGET_FIRST TARGET_MONE];
+        end
+    end
+
     rFIdx = randperm(length(fTARGET));
     equalizedINPUT = fINPUT(:, rFIdx);
     equalizedTARGET = fTARGET(rFIdx);
     
 %    save('equalizedDATA', 'equalizedINPUT', 'equalizedTARGET');
-    save('Edge_equalizedDATA8x8', 'equalizedINPUT', 'equalizedTARGET');
+    save('Edge_equalizedDATA16x16_MID_AS_ZERO', 'equalizedINPUT', 'equalizedTARGET');
     
 %     nrINPUT = INPUT;
 %     nrTARGET = TARGET;
