@@ -45,7 +45,8 @@ function [CM, OUTPUT, TARGET_TEST] = evalRBFNN(STARTING_POINT, SPAN, TEST__START
 
     NN = newrb(INPUT_TRAIN, TARGET_TRAIN, GOAL, SPREAD_CONSTANT, MN, DF);
     OUTPUT = sim(NN, INPUT_TEST);
-    disp(OUTPUT);
     [dummy,CM] = confusion(TARGET_TEST,OUTPUT);
+    save(strcat('bbDATA', num2str(TEST_SPAN)), 'TARGET_TEST', 'OUTPUT');
+    disp('saved once');
 end
 
