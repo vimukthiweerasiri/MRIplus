@@ -44,9 +44,13 @@ function [CM, OUTPUT, TARGET_TEST] = evalRBFNN(STARTING_POINT, SPAN, TEST__START
     disp(size(TARGET_TEST));
 
     NN = newrb(INPUT_TRAIN, TARGET_TRAIN, GOAL, SPREAD_CONSTANT, MN, DF);
-    OUTPUT = sim(NN, INPUT_TEST);
-    [dummy,CM] = confusion(TARGET_TEST,OUTPUT);
-    save(strcat('bbDATA', num2str(TEST_SPAN)), 'TARGET_TEST', 'OUTPUT');
-    disp('saved once');
+    NNout = sim(NN, INPUT_TRAIN);
+    INPUT_FOR_TODISCRETE = vertcat(NNout, TARGET_TRAIN);
+    [TO_DISCRETE_MODEL, validationAccuracy] = continuosToDiscrete(INPUT_FOR_TODISCRETE);
+    
+    OUTPUTfromNN = sim(NN, INPUT_TEST);
+    OUTPUT_DISCRETE = TO_DISCRETE_MODEL.predictFcn(OUTPUTfromNN);
+
+    [dummy,CM] = confusion(TARGET_TEST,OUTPUT_DISCRETE');
 end
 
