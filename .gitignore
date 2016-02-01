@@ -1,1 +1,36 @@
 trials/
+0001-hybrid-now.patch
+0001-knn-classifier-gives-the-highest-accuracy-code-is-ge.patch
+BRATS-1/
+Matlab/.m
+Matlab/Data/Edge_equalizedDATA_withoutINSIDE8x8.mat
+Matlab/Data/INPUT.csv
+Matlab/Data/TARGET.csv
+Matlab/Data/wekaData.csv
+Matlab/Images/NEW/
+Matlab/Images/SET1/IN/
+Matlab/Images/SET1/MID_PHOTOS/
+Matlab/Images/SET1/OUT/
+Matlab/MRI Brain Scan/
+Matlab/SP1.jpg
+Matlab/SP1000.jpg
+Matlab/SP2.jpg
+Matlab/abc.m
+Matlab/adder.m
+Matlab/bbDATA99.mat
+Matlab/feuler.m
+Matlab/figErr4.jpg
+Matlab/gauss_seidel.m
+Matlab/jacobi.m
+Matlab/newrbv.m
+Matlab/ny.txt
+Matlab/spread1.jpg
+Matlab/timeForDeterminent.m
+Matlab/time_1.m
+Python/.idea/
+input.jpg
+mine.png
+output.jpg
+target/
+true.png
+untitled folder/
