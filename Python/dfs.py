@@ -1,4 +1,6 @@
 import numpy as np
+from sklearn import svm, cross_validation, metrics
+import pickle
 
 
 def mat2gray(matrix):
@@ -48,6 +50,8 @@ def dfs_iterative(matrix, idx, idy):
 
 def get_predict_input(MAT, tile_size):
 	# MAT = mat2gray(MAT)
+	# print(MAT)
+	RESULT = np.copy(MAT)
 	[numRow, numCol] = MAT.shape
 	for x in range(numRow):
 		dfs_iterative(MAT, x, 0)
@@ -58,13 +62,17 @@ def get_predict_input(MAT, tile_size):
 		dfs_iterative(MAT, numRow - 1, y)
 
 	data = []
+	newModel = None
+	with open('model.pkl', 'rb') as input:
+		newModel = pickle.load(input)
 
 	# send this to configuration the 16
-
 	for x in range(0, numRow - tile_size + 1, tile_size):
 		for y in range(0, numCol - tile_size + 1, tile_size):
 			temp = MAT[x:x + tile_size, y:y + tile_size]
 			if -1 not in temp:
+				result = (newModel.predict([normalize(temp.transpose().flatten())]))[0]
+				(RESULT[x:x + tile_size, y:y + tile_size]).fill(result * 256)
+				print(result)
 				data.append(normalize(temp.transpose().flatten()))
-
-	return np.array(data)
+	return np.array(RESULT)
