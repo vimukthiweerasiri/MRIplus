@@ -4,13 +4,13 @@ import numpy as np
 def mat2gray(matrix):
 	min = np.min(matrix)
 	max = np.max(matrix)
-	return (matrix - min) / (max - min)
+	return (matrix - min) if (max - min) == 0 else (matrix - min) / (max - min)
 
 
 def normalize(matrix):
-	var = np.var(matrix)
+	std = np.var(matrix)
 	mean = np.mean(matrix)
-	return (matrix - mean) / var
+	return (matrix - mean) if std == 0 else (matrix - mean) / std
 
 
 def dfs(matrix, x, y, numRow, numCol):
@@ -24,25 +24,46 @@ def dfs(matrix, x, y, numRow, numCol):
 		dfs(matrix, x + 1, y - 1, numRow, numCol)
 
 
-def get_predict_input(MAT):
-	MAT = mat2gray(MAT)
+def dfs_iterative(matrix, idx, idy):
+	if matrix[idx][idy] != 0:
+		return None
+	[numRow, numCol] = matrix.shape
+	stack = [idx * numCol + idy]
+
+	while len(stack) != 0:
+		val = stack.pop()
+		x = int(val / numCol)
+		y = val % numCol
+		matrix[x][y] = -1
+
+		if x > 0 and matrix[x - 1][y] == 0:
+			stack.append((x - 1) * numCol + y)
+		if y > 0 and matrix[x][y - 1] == 0:
+			stack.append(x * numCol + (y - 1))
+		if numRow - 1 > x and matrix[x + 1][y] == 0:
+			stack.append((x + 1) * numCol + y)
+		if numCol - 1 > y and matrix[x][y + 1] == 0:
+			stack.append(x * numCol + (y + 1))
+
+
+def get_predict_input(MAT, tile_size):
+	# MAT = mat2gray(MAT)
 	[numRow, numCol] = MAT.shape
 	for x in range(numRow):
-		dfs(MAT, x, 0, numRow, numCol)
-		dfs(MAT, x, numCol - 1, numRow, numCol)
+		dfs_iterative(MAT, x, 0)
+		dfs_iterative(MAT, x, numCol - 1)
 
 	for y in range(numCol):
-		dfs(MAT, 0, y, numRow, numCol)
-		dfs(MAT, numRow - 1, y, numRow, numCol)
+		dfs_iterative(MAT, 0, y)
+		dfs_iterative(MAT, numRow - 1, y)
 
 	data = []
 
 	# send this to configuration the 16
-	tile_size = 2
+
 	for x in range(0, numRow - tile_size + 1, tile_size):
 		for y in range(0, numCol - tile_size + 1, tile_size):
 			temp = MAT[x:x + tile_size, y:y + tile_size]
-			normalize(temp)
 			if -1 not in temp:
 				data.append(normalize(temp.transpose().flatten()))
 
