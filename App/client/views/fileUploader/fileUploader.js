@@ -10,6 +10,14 @@ Template.fileUploader.events = {
             var binaryString = readerEvt.target.result;
             var str = btoa(binaryString);
             Meteor.call('predict', str, function(err, data){
+
+                var original_image = new Image();
+                original_image.src = 'data:image/png;base64,'.concat(data['original'])
+                document.body.appendChild(original_image);
+
+                var result_image = new Image();
+                result_image.src = 'data:image/png;base64,'.concat(data['result'])
+                document.body.appendChild(result_image);
                 console.log(err, data);
             })
         };
