@@ -14,5 +14,14 @@ Meteor.methods({
     predict: function (base64string) {
         console.log()
         return getPrediction(base64string.replace(/\//g, '-')).response;
+    },
+    addData: function (data1, data2) {
+        // TODO: do type checkings here
+        CommunityData.insert({'train': data1, 'tatget': data2});
+    },
+    getToVerify: function () {
+        // TODO: make a policy to make the new one
+        data = CommunityData.findOne();
+        return {'id': data._id, 'train': data.train, 'target': data.target};
     }
 });
