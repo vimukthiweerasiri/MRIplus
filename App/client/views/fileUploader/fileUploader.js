@@ -2,8 +2,10 @@
  * Created by vimukthi on 2/3/16.
  */
 Template.fileUploader.events = {
-    "change .input": function(event){
-        var file = event.target.files[0];
+    "submit .upload_image": function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        var file = $(".input-image").prop("files")[0];
         console.log(file);
         var reader = new FileReader();
         reader.onload = function(readerEvt) {
@@ -23,5 +25,6 @@ Template.fileUploader.events = {
         };
 
         reader.readAsBinaryString(file);
+        return false;
     }
 }
