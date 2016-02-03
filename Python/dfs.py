@@ -1,6 +1,9 @@
 import numpy as np
 from sklearn import svm, cross_validation, metrics
 import pickle
+import base64
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 
 
 def mat2gray(matrix):
@@ -52,6 +55,7 @@ def get_predict_input(MAT, tile_size):
 	# MAT = mat2gray(MAT)
 	# print(MAT)
 	RESULT = np.copy(MAT)
+	ORIGINAL = np.copy(MAT)
 	[numRow, numCol] = MAT.shape
 	for x in range(numRow):
 		dfs_iterative(MAT, x, 0)
@@ -75,4 +79,16 @@ def get_predict_input(MAT, tile_size):
 				(RESULT[x:x + tile_size, y:y + tile_size]).fill(result * 256)
 				print(result)
 				data.append(normalize(temp.transpose().flatten()))
-	return np.array(RESULT)
+
+	plt.imshow(ORIGINAL, cmap=cm.Greys_r)
+	plt.savefig('ORIGINAL.png')
+	original_base64 = base64.b64encode(open("ORIGINAL.png", "rb").read()).decode("utf-8")
+	plt.imshow(RESULT, cmap=cm.Greys_r)
+	plt.savefig('RESULT.png')
+	result_base64 = base64.b64encode(open("RESULT.png", "rb").read()).decode("utf-8")
+	print(original_base64)
+	print(result_base64)
+	print(type(original_base64))
+	print(type(result_base64))
+
+	return [original_base64, result_base64]

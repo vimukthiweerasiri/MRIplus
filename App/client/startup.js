@@ -4,7 +4,7 @@
 Meteor.startup(function() {
     console.log("client started");
     var dicom = "dfasdfsd";
-    Meteor.call('predict', dicom, function(err, data){
-        console.log(err, data);
-    })
+    //Meteor.call('predict', dicom, function(err, data){
+    //    console.log(err, data);
+    //})
 });
