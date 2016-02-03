@@ -23,5 +23,13 @@ Meteor.methods({
         // TODO: make a policy to make the new one
         data = CommunityData.findOne();
         return {'id': data._id, 'train': data.train, 'target': data.target};
+    },
+    getUnvalidatedUsers: function (userID) {
+        console.log(Meteor.users.find({}));
+        return Meteor.users.findOne({});
+    },
+    getValidatedUsers: function (userID) {
+        console.log(Meteor.users.find({'level': 1}));
+        return Meteor.users.findOne({'level':1});
     }
 });
