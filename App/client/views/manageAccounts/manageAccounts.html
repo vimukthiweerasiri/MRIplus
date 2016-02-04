@@ -1,4 +1,14 @@
 <template name="manageAccounts">
-    <button id="validate_user">validate users</button>
-    <button id="create_admin">add an admin</button>
+    Validate users
+    <ul>
+        {{#each validates}}
+            {{> showInvalidates}}
+        {{/each}}
+    </ul>
+    Upgrade to Admin
+    <ul>
+        {{#each admins}}
+            {{> showAdmins}}
+        {{/each}}
+    </ul>
 </template>

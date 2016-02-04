@@ -15,3 +15,22 @@ Template.manageAccounts.events({
         })
     }
 })
+
+Template.manageAccounts.helpers({
+    validates: function () {
+        console.log("this works");
+        Meteor.call('getInvalidates', Meteor.userId(), function (err, data) {
+            console.log(err, data);
+            Session.set('getInvalidates', data);
+        });
+        return Session.get('getInvalidates');
+    },
+    admins: function () {
+        console.log("this worksAAAAA");
+        Meteor.call('getValidates', Meteor.userId(), function (err, data) {
+            console.log(err, data);
+            Session.set('getValidates', data)
+        });
+        return Session.get('getValidates');
+    }
+})

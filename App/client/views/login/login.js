@@ -10,7 +10,10 @@ Template.login.events({
         console.log(email, password, mobile, website);
         Accounts.createUser({
             email: email,
-            password: password
+            password: password,
+            mobile: mobile,
+            website: website,
+            address: email
         });
     }
 })

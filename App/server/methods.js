@@ -10,6 +10,10 @@ var getPredictionAsync = function(base64string, callback) {
 };
 var getPrediction = Meteor.wrapAsync(getPredictionAsync);
 
+var getUsers = function (level, callback) {
+    Meteor.users.find({level: 0}, {field: {_id: 1, email: 1, phone: 1, website: 1}})
+}
+
 Meteor.methods({
     predict: function (base64string) {
         console.log()
@@ -22,18 +26,24 @@ Meteor.methods({
     getToVerify: function () {
         // TODO: make a policy to make the new one, get id from responses and fetch here
         var data = CommunityData.findOne();
-        console.log({'id': data['_id'], 'train': data['train'], 'target': data['target']});
         return {'id': data['_id'], 'train': data['train'], 'target': data['target']};
-    },
-    getUnvalidatedUsers: function (userID) {
-        console.log(Meteor.users.find({}));
-        return Meteor.users.findOne({});
-    },
-    getValidatedUsers: function (userID) {
-        console.log(Meteor.users.find({'level': 1}));
-        return Meteor.users.findOne({'level':1});
     },
     recordResponse: function (userID, verifyingID, response) {
         CommunityResponse.insert({'userID': userID, 'verifyingID': verifyingID, 'response': response});
+    },
+    upgradeToValidated: function (userID, role) {
+        // TODO: check userID here and below
+        console.log('this is called', role);
+        Meteor.users.update({_id: role}, {$set: {level: 1}});
+    },
+    upgradeToAdmin: function (userID, role) {
+        console.log('this is called', role);
+        Meteor.users.update({_id: role}, {$set: {level: 2}});
+    },
+    getInvalidates: function (userID) {
+        return Meteor.users.find({level: 0}, {field: {_id: 1, address: 1, phone: 1, website: 1}}).fetch();
+    },
+    getValidates: function (userID) {
+        return Meteor.users.find({level: 1}, {field: {_id: 1, address: 1, phone: 1, website: 1}}).fetch();
     }
 });
