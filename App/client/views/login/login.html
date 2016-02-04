@@ -1,6 +1,9 @@
 <template name="login">
-    <input type="text" id="useremail"/>
-    <input type="password" id='userpassword'/>
-    <button id="loginButton">Login</button>
-    <button id="logoutButton">Logout</button>
+    <div class="form-group col-md-8 col-md-offset-2">
+        <label class="control-label" for="inputLarge">Username</label>
+        <input class="form-control input-lg" type="text" id="useremail" autocomplete="off">
+        <label class="control-label" for="inputLarge">Password</label>
+        <input type="password" class="form-control input-lg" id='userpassword' autocomplete="off">
+        <a href="#" class="btn btn-success" id="loginButton">Login</a>
+    </div>
 </template>

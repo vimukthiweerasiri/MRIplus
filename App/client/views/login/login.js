@@ -9,11 +9,8 @@ Template.login.events({
         Meteor.loginWithPassword(userEmail, password, function (err, data) {
             console.log(err, data);
             if(err) console.log(err.reason);
-        })
-    },
-    "click #logoutButton": function (event, target) {
-        Meteor.logout(function (err, data) {
-            console.log(err, data);
+            $("#useremail").val('');
+            $("#userpassword").val('');
         })
     }
 })
