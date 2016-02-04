@@ -1,18 +1,27 @@
 <template name="navbar">
-    <nav>
-        <a href="/">MRI online</a> |
-        {{#if isAdmin}}
-            <a href="/manageAccounts">Manage</a> |
-        {{/if}}
-        {{#if isValidated}}
-            <a href="/verifyData/">Verify</a> |
-        {{/if}}
-        {{#if authenticated}}
-            <a href="/fileUploader">Upload</a> |
-            <a id="logoutUser">Logout</a> |
-        {{else}}
-            <a href="/signup">signup</a> |
-            <a href="/login">Login</a> |
-        {{/if}}
-    </nav>
+    <div class="container-fluid">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">MRI online</a>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    {{#if isAdmin}}
+                        <li><a href="/manageAccounts">Manage</a></li>
+                    {{/if}}
+                    {{#if isValidated}}
+                        <li><a href="/verifyData/">Verify</a></li>
+                    {{/if}}
+                    {{#if authenticated}}
+                        <li><a href="/fileUploader">Upload</a></li>
+                        <li><a id="logoutUser">Logout</a></li>
+                    {{else}}
+                        <li><a href="/signup">signup</a></li>
+                        <li><a href="/login">Login</a></li>
+                    {{/if}}
+                </ul>
+            </div>
+        </nav>
+    </div>
 </template>

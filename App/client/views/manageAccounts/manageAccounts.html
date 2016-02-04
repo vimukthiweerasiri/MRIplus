@@ -1,14 +1,50 @@
 <template name="manageAccounts">
-    Validate users
-    <ul>
-        {{#each validates}}
-            {{> showInvalidates}}
-        {{/each}}
-    </ul>
-    Upgrade to Admin
-    <ul>
-        {{#each admins}}
-            {{> showAdmins}}
-        {{/each}}
-    </ul>
+    <h3>Validate users</h3>
+    {{#if validates}}
+        <table class="table table-striped table-hover ">
+            <thead>
+            <tr>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Website</th>
+                <th>Validate</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {{#each validates}}
+                    {{> showInvalidates}}
+                {{/each}}
+            </tr>
+            </tbody>
+        </table>
+    {{else}}
+        <h5>Currently no one to get upgraded as an admin</h5>
+    {{/if}}
+
+    <h3>Upgrade to Admin</h3>
+    {{#if admins}}
+        <table class="table table-striped table-hover ">
+            <thead>
+            <tr>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Website</th>
+                <th>Upgrade</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {{#each admins}}
+                    {{> showAdmins}}
+                {{/each}}
+            </tr>
+            </tbody>
+        </table>
+    {{else}}
+        <h5>Currently no one to get upgraded as an admin</h5>
+    {{/if}}
+
+
+
 </template>
