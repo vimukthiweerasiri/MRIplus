@@ -3,22 +3,22 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">MRI online</a>
+                    <a class="navbar-brand nav-head" href="/" style="font-size: xx-large">MRI online</a>
                 </div>
 
                 <ul class="nav navbar-nav navbar-right">
                     {{#if isAdmin}}
-                        <li><a href="/manageAccounts">Manage</a></li>
+                        <li><a href="/manageAccounts" class="navline">Manage</a></li>
                     {{/if}}
                     {{#if isValidated}}
-                        <li><a href="/verifyData/">Verify</a></li>
+                        <li><a href="/verifyData/" class="navline">Verify</a></li>
                     {{/if}}
                     {{#if authenticated}}
-                        <li><a href="/fileUploader">Upload</a></li>
-                        <li><a id="logoutUser">Logout</a></li>
+                        <li><a href="/fileUploader" class="navline">Upload</a></li>
+                        <li><a id="logoutUser" class="navline">Logout</a></li>
                     {{else}}
-                        <li><a href="/signup">signup</a></li>
-                        <li><a href="/login">Login</a></li>
+                        <li><a href="/signup" class="navline">signup</a></li>
+                        <li><a href="/login" class="navline">Login</a></li>
                     {{/if}}
                 </ul>
             </div>
