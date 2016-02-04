@@ -4,10 +4,10 @@
 var verifyingID = 0;
 
 var recordResponse = function (response) {
-    console.log('cliekced2222');
     $("#verifyingDiv").hide();
     Meteor.call('recordResponse', Meteor.userId(), verifyingID, response, function (err, data) {
         console.log(err, data);
+        $("#verifyingDiv").hide();
     })
 }
 
@@ -22,7 +22,6 @@ Template.verifyData.events = {
         })
     },
     "click #correct": function (event, target) {
-        console.log('cliekced1111');
         recordResponse(1);
     },
     "click #incorrect": function (event, target) {
