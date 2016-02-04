@@ -45,5 +45,8 @@ Meteor.methods({
     },
     getValidates: function (userID) {
         return Meteor.users.find({level: 1}, {field: {_id: 1, address: 1, phone: 1, website: 1}}).fetch();
+    },
+    getLevel: function (userID) {
+        return Meteor.users.findOne({_id: userID});
     }
 });

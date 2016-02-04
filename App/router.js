@@ -1,6 +1,17 @@
 /**
  * Created by vimukthi on 2/4/16.
  */
+var getLevelAsync = function (userID, callback) {
+    Meteor.call('getLevel', Meteor.userId(), function (err, data) {
+        //console.log(data);
+        //console.log(data["level"]);
+        callback(null, data);
+    })
+}
+
+var getLevel = Meteor.wrapAsync(getLevelAsync);
+
+
 Router.configure({
     layoutTemplate: 'layout',
     notFoundTemplate: 'pageNotFound'
@@ -14,5 +25,19 @@ Router.route('/dataUpload')
 Router.route('/fileUploader')
 Router.route('/signup')
 Router.route('/manageAccounts')
-Router.route('/verifyData')
+Router.route('/verifyData', {
+    waitOn: function () {
+        Meteor.subscribe("userlevel");
+        return Meteor.subscribe("userlevel");
+    },
+    action: function () {
+        console.log(UserLevel.find());
+        this.render('verifyData');
+    }
+})
 Router.route('/login')
+
+
+Router.route('/abc', function () {
+    console.log('vimukthi is the best');
+})
