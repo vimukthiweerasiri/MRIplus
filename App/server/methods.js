@@ -17,12 +17,13 @@ Meteor.methods({
     },
     addData: function (data1, data2) {
         // TODO: do type checkings here
-        CommunityData.insert({'train': data1, 'tatget': data2});
+        CommunityData.insert({'train': data1, 'target': data2});
     },
     getToVerify: function () {
-        // TODO: make a policy to make the new one
-        data = CommunityData.findOne();
-        return {'id': data._id, 'train': data.train, 'target': data.target};
+        // TODO: make a policy to make the new one, get id from responses and fetch here
+        var data = CommunityData.findOne();
+        console.log({'id': data['_id'], 'train': data['train'], 'target': data['target']});
+        return {'id': data['_id'], 'train': data['train'], 'target': data['target']};
     },
     getUnvalidatedUsers: function (userID) {
         console.log(Meteor.users.find({}));
@@ -31,5 +32,8 @@ Meteor.methods({
     getValidatedUsers: function (userID) {
         console.log(Meteor.users.find({'level': 1}));
         return Meteor.users.findOne({'level':1});
+    },
+    recordResponse: function (userID, verifyingID, response) {
+        CommunityResponse.insert({'userID': userID, 'verifyingID': verifyingID, 'response': response});
     }
 });
