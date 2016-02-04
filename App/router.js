@@ -25,16 +25,7 @@ Router.route('/dataUpload')
 Router.route('/fileUploader')
 Router.route('/signup')
 Router.route('/manageAccounts')
-Router.route('/verifyData', {
-    waitOn: function () {
-        Meteor.subscribe("userlevel");
-        return Meteor.subscribe("userlevel");
-    },
-    action: function () {
-        console.log(UserLevel.find());
-        this.render('verifyData');
-    }
-})
+Router.route('/verifyData')
 Router.route('/login')
 
 
