@@ -8,3 +8,11 @@ Meteor.startup(function() {
     //    console.log(err, data);
     //})
 });
+
+Tracker.autorun(function () {
+    if(Meteor.userId()){
+        Meteor.call('getLevel', Meteor.userId(), function (err, data) {
+            Session.set('level', data['level']);
+        })
+    }
+});
