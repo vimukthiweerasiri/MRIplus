@@ -1,19 +1,19 @@
 /**
- * Created by vimukthi on 2/3/16.
+ * Created by vimukthi on 2/4/16.
  */
 Template.login.events({
-    "click #signup": function (event, target) {
-        var email = $("#email").val();
-        var password = $("#password").val();
-        var mobile = $("#mobile").val();
-        var website = $("#website").val();
-        console.log(email, password, mobile, website);
-        Accounts.createUser({
-            email: email,
-            password: password,
-            mobile: mobile,
-            website: website,
-            address: email
-        });
+    "click #loginButton": function (event, target) {
+        var userEmail = $("#useremail").val();
+        var password = $("#userpassword").val();
+        console.log(userEmail, password);
+        Meteor.loginWithPassword(userEmail, password, function (err, data) {
+            console.log(err, data);
+            if(err) console.log(err.reason);
+        })
+    },
+    "click #logoutButton": function (event, target) {
+        Meteor.logout(function (err, data) {
+            console.log(err, data);
+        })
     }
 })

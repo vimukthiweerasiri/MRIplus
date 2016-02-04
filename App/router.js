@@ -2,7 +2,8 @@
  * Created by vimukthi on 2/4/16.
  */
 Router.configure({
-    layoutTemplate: 'layout'
+    layoutTemplate: 'layout',
+    notFoundTemplate: 'pageNotFound'
 });
 
 Router.route('/', {
@@ -11,6 +12,7 @@ Router.route('/', {
 
 Router.route('/dataUpload')
 Router.route('/fileUploader')
-Router.route('/login')
+Router.route('/signup')
 Router.route('/manageAccounts')
 Router.route('/verifyData')
+Router.route('/login')
