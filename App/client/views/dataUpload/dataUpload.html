@@ -1,7 +1,16 @@
 <template name="dataUpload">
-    <form class="upload-datas">
-        <input type="file" class="input1">
-        <input type="file" class="input2">
-        <input type="submit">
-    </form>
+    <div id="uploading-div">
+        <div style="position: absolute; top: 50%; left: 50%">
+            <form class="upload-datas">
+                <input type="file" class="input1">
+                <input type="file" class="input2">
+                <a href="#" class="btn btn-success" id="upload-data">Add</a>
+            </form>
+        </div>
+    </div>
+    <div id="upload-feedback" style="position: absolute; top: 50%; left: 50%">
+        <h5 style="color: white">Thank you for your data</h5>
+    </div>
+
+
 </template>

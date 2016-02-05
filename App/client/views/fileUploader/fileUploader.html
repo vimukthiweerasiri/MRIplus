@@ -2,13 +2,17 @@
     <div id="predict-show">
         <img id="inIm1" class="col-md-5">
         <img id="inIm2" class="col-md-5">
-        <h5>Your feedback improves the learning...</h5>
+        <h5 style="color: white">Your feedback improves the learning...</h5>
         <a href="#" class="btn btn-success" id="predict-success">This seems correct</a>
         <a href="#" class="btn btn-danger" id="predict-danger">This seems incorrect</a>
-        <a href="#" class="btn btn-danger" id="another">Next(</a>
+        <a href="#" class="btn btn-danger" id="another">Next</a>
     </div>
-    <div id="file-input-buttons">
-        <input type="file" class="input-image">
-        <a href="#" class="btn btn-success" id="predict-btn">predict</a>
+    <div id="tadahide">
+        <div id="file-input-buttons" style="text-align: center">
+        <span class="btn btn-success btn-file" style="position: absolute; top: 30%">
+        Predict <input type="file" class="input-image" id="predict-btn">
+        </span>
+        </div>
     </div>
+
 </template>

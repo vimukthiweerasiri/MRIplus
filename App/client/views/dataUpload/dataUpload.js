@@ -2,7 +2,7 @@
  * Created by vimukthi on 2/3/16.
  */
 Template.dataUpload.events = {
-    "submit .upload-datas": function (event, target) {
+    "click #upload-data": function (event, target) {
         event.preventDefault();
         var file1 = $(".input1").prop("files")[0];
         var file2 = $(".input2").prop("files")[0];
@@ -16,6 +16,8 @@ Template.dataUpload.events = {
                 var binarystr2 = readerEvt2.target.result;
                 var data2 = btoa(binarystr2);
                 console.log('submitting 2 files', data1.length, data2.length);
+                $("#uploading-div").hide();
+                $("#upload-feedback").show();
                 Meteor.call('addData', data1, data2, function (err, data) {
 
                 })
@@ -29,3 +31,6 @@ Template.dataUpload.events = {
     }
 }
 
+Template.dataUpload.rendered = function () {
+    $("#upload-feedback").hide();
+}
