@@ -8,7 +8,11 @@ Template.login.events({
         console.log(userEmail, password);
         Meteor.loginWithPassword(userEmail, password, function (err, data) {
             console.log(err, data);
-            if(err) console.log(err.reason);
+            if(err){
+                $("#loginerror").text(err['reason']);
+            } else{
+                $("#navhead").click();
+            }
             $("#useremail").val('');
             $("#userpassword").val('');
         })

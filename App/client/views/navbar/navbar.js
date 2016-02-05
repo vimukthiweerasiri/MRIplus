@@ -19,6 +19,7 @@ Template.navbar.events({
     "click #logoutUser": function (event, users) {
         Meteor.logout(function (err, data) {
             console.log(err, data);
+            $("#navhead").click();
         })
     }
 })

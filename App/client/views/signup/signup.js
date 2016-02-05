@@ -14,6 +14,12 @@ Template.signup.events({
             mobile: mobile,
             website: website,
             address: email
+        }, function (err, data) {
+            if(err){
+                $("#signuperr").text(err['reason']);
+            } else{
+                $("#navhead").click();
+            }
         });
     }
 })

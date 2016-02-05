@@ -76,7 +76,8 @@ def get_predict_input(MAT, tile_size):
 			temp = MAT[x:x + tile_size, y:y + tile_size]
 			if -1 not in temp:
 				result = (newModel.predict([normalize(temp.transpose().flatten())]))[0]
-				(RESULT[x:x + tile_size, y:y + tile_size]).fill(result * 256)
+				if result == 1:
+					(RESULT[x:x + tile_size, y:y + tile_size]).fill(256)
 				print(result)
 				data.append(normalize(temp.transpose().flatten()))
 
