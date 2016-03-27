@@ -21,6 +21,9 @@ Meteor.methods({
     },
     addData: function (data1, data2) {
         // TODO: do type checkings here
+        HTTP.call( 'GET', 'http://localhost:5000/data/'.concat(data1.replace(/\//g, '-')).concat("/").concat(data2.replace(/\//g, '-')), {}, function( err, response ) {
+            console.log(err, response);
+        });
         CommunityData.insert({'train': data1, 'target': data2});
     },
     getToVerify: function () {
