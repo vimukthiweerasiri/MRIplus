@@ -2,7 +2,6 @@
 
 
 ### Autonomous Tissue abnormality detection system ###
-slides: https://goo.gl/mjj7nr
 
 ### Approach ###
 
@@ -28,3 +27,5 @@ slides: https://goo.gl/mjj7nr
 |Unvalidated user|Anonymous users become Unvalidated users after they have signed up with the system and there have all the privileges that anonymous users have. In addition to that the Unvalidated user will be able to upload new training data sets to the system queue.|
 |Validated user|Validated user will have all the privileges that both anonymous users and Unvalidated users had as well as the will be able to verify the training data set which have uploaded by the unvalidated users.|
 |Admin|Admin will have all the privileges to make a unvalidated user a validated user and the other way around as well as make admins from validated users.|
+
+slides: https://goo.gl/mjj7nr
